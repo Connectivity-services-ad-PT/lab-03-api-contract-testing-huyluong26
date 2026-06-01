@@ -3,18 +3,18 @@
 ## Thông tin chung
 
 - Lab: FIT4110 Lab 03
-- Ngày: 2026-06-01
-- Provider team: team-vision (AI Vision)
-- Consumer team: team-core (Core Business)
+- Ngày: 01/06/2026
+- Provider team: B4 (AI Vision - team-vision)
+- Consumer team: B6 (Core Business - team-core)
 - Provider service: AI Vision Service
 - Consumer service: Core Business Service
 
 ## Contract
 
-- Contract file: team-core.openapi.yaml
-- Mock base URL: http://localhost:4010
+- Contract file: `contracts/ai-vision.openapi.yaml`
+- Mock base URL: `http://localhost:4010` (hoặc `4011` tuỳ config mock)
 - Auth method: Bearer Token
-- Endpoint được test: POST /vision/face-match
+- Endpoint được test: `POST /vision/face-match`
 
 ## Smoke test
 
@@ -22,7 +22,7 @@
 
 ```http
 POST /vision/face-match
-Authorization: Bearer lab-token
+Authorization: Bearer <your-auth-token>
 Content-Type: application/json
 ```
 
@@ -39,7 +39,7 @@ Content-Type: application/json
 
 ```json
 {
-  "detectionId": "123e4567-e89b-12d3-a456-426614174000",
+  "detectionId": "b65103cb-64bc-4fc5-bf0b-6a98f1f7d5c7",
   "detectionType": "FACE",
   "faceMatched": true,
   "isLive": true,
@@ -60,9 +60,10 @@ Content-Type: application/json
 
 | Nội dung | Trước | Sau | Người đồng ý |
 |---|---|---|---|
-| | | | |
+| Bổ sung liveness check | Không có | Thêm trường `isLive: boolean` | Đại diện B4 & B6 |
+| Thống nhất UUID format | Dùng ID thường | Chuẩn hoá `format: uuid` | Đại diện B4 & B6 |
 
 ## Xác nhận
 
-- Provider representative: team-vision lead
-- Consumer representative: team-core lead
+- Provider representative: Đại diện nhóm B4 (AI Vision)
+- Consumer representative: Hoàng Văn Thi (Đại diện B6 - Core Business)

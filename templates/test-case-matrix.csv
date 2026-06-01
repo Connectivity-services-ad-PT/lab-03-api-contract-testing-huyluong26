@@ -1,10 +1,7 @@
 ID,Folder,Endpoint,Method,Scenario,Input file/body,Expected status,Expected response check,Type,Pass/Fail,Evidence
-TC01,Functional,/events,POST,Create Sensor Event (Valid),Inline JSON,201,eventId and acceptedAt,functional,Pass,Newman HTML Report
-TC02,Functional,/access/check,POST,Access Check (Valid),Inline JSON,200,decision is ALLOW or DENY,functional,Pass,Newman HTML Report
-TC03,Auth,/alerts,GET,Get Alerts - Missing Token,-,401/403,Status code,auth,Pass,Newman HTML Report
-TC04,Auth,/alerts,GET,Get Alerts - Valid Token,-,200,Status code,auth,Pass,Newman HTML Report
-TC05,Negative,/access/check,POST,Access Check - Invalid Card Format,Inline JSON,400/422,Problem Details status code,negative,Pass,Newman HTML Report
-TC06,Negative,/events,POST,Create Sensor Event - Invalid Metric,Inline JSON,400/422,Status code,negative,Pass,Newman HTML Report
-TC07,Boundary_Reliability,/events,POST,Create Sensor Event - Very High Value,Inline JSON,201/400/422,Status code,boundary,Pass,Newman HTML Report
-TC08,Consumer_side_Smoke,/vision/face-match,POST,Request Face Match from AI Vision Mock,Inline JSON,201,detectionId and faceMatched,smoke,Pass,Newman HTML Report
-TC09,Local_only_NonFunctional,/health,GET,Health Check Latency,-,200,responseTime < 1000ms,nonfunctional,Pass,Newman HTML Report
+TC01,01_Functional,/alerts,POST,Happy path create alert,JSON Body,201,"has id, status",functional,Pass,newman-report.html
+TC02,02_Auth,/events,POST,Missing Token,JSON Body,401,-,auth,Pass,newman-report.html
+TC03,03_Negative,/events,POST,Invalid Payload,JSON Body,422,Problem Details,negative,Pass,newman-report.html
+TC04,04_Boundary,/alerts/recent,GET,Limit 101,-,422,-,boundary,Pass,newman-report.html
+TC05,05_Consumer_side_Smoke,/vision/face-match,POST,Call AI Vision Mock,JSON Body,201,"faceMatched, detectionId",smoke,Pass,newman-report.html
+TC06,06_Local_only,/health,GET,Latency under 1000ms,-,200,-,non-functional,Pass,newman-report.html
