@@ -1,0 +1,12 @@
+name: team-core-mock
+values:
+  - key: env
+    value: mock
+  - key: baseUrl
+    value: 'http://localhost:4010'
+  - key: authToken
+    value: lab-token
+  - key: teamName
+    value: team-core
+  - key: aiVisionMockUrl
+    value: 'http://localhost:4010'

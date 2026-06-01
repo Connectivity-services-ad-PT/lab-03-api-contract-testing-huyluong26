@@ -1,0 +1,26 @@
+$kind: http-request
+url: "{{aiVisionMockUrl}}/vision/face-match"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "imageRef": "https://campus.local/images/card-scan-001.jpg",
+      "requestId": "0196fb3d-4ad7-7d1e-9f49-5d5148d2babc",
+      "cameraId": "CAM-002",
+      "timestamp": "2026-05-10T08:01:00Z"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Face match successfully mock called", function () {
+          pm.response.to.have.status(201);
+          const json = pm.response.json();
+          pm.expect(json).to.have.property('detectionId');
+          pm.expect(json.faceMatched).to.be.a('boolean');
+      });
+    language: text/javascript
+order: 1000

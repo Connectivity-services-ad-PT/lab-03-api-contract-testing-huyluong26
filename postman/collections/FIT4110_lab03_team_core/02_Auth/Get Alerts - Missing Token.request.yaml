@@ -1,0 +1,11 @@
+$kind: http-request
+url: "{{baseUrl}}/alerts"
+method: GET
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Unauthorized request returns 401 or 403", function () {
+          pm.expect([401, 403]).to.include(pm.response.code);
+      });
+    language: text/javascript
+order: 1000

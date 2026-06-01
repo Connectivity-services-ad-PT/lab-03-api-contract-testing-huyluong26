@@ -1,0 +1,26 @@
+$kind: http-request
+url: "{{baseUrl}}/events"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "eventType": "SENSOR_READING",
+      "eventId": "0196fb3d-4ad7-7d1e-9f49-5d5148d2babc",
+      "deviceId": "SENSOR-001",
+      "metric": "temperature",
+      "value": 1000,
+      "unit": "celsius",
+      "timestamp": "2026-05-10T08:00:00Z"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("High temperature is accepted or rejected as invalid", function () {
+          pm.expect([201, 400, 422]).to.include(pm.response.code);
+      });
+    language: text/javascript
+order: 1000

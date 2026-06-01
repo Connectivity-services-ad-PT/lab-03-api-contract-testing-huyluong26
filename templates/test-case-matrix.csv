@@ -1,6 +1,10 @@
 ID,Folder,Endpoint,Method,Scenario,Input file/body,Expected status,Expected response check,Type,Pass/Fail,Evidence
-TC01,Functional,/health,GET,Service is alive,-,200,status=ok,functional,,
-TC02,Functional,/readings,POST,Create reading happy path,mock-data/sensor-reading-valid.json,201,"has reading_id, accepted=true",functional,,
-TC03,Negative,/readings,POST,Missing device_id,mock-data/sensor-reading-invalid-missing-device.json,400,Problem Details,negative,,
-TC04,Auth,/readings,POST,Missing token,mock-data/sensor-reading-valid.json,401,Problem Details,auth,,
-TC05,Boundary,/readings,POST,High temperature boundary,mock-data/sensor-reading-boundary.json,201/400,documented behavior,boundary,,
+TC01,Functional,/events,POST,Create Sensor Event (Valid),Inline JSON,201,eventId and acceptedAt,functional,Pass,Newman HTML Report
+TC02,Functional,/access/check,POST,Access Check (Valid),Inline JSON,200,decision is ALLOW or DENY,functional,Pass,Newman HTML Report
+TC03,Auth,/alerts,GET,Get Alerts - Missing Token,-,401/403,Status code,auth,Pass,Newman HTML Report
+TC04,Auth,/alerts,GET,Get Alerts - Valid Token,-,200,Status code,auth,Pass,Newman HTML Report
+TC05,Negative,/access/check,POST,Access Check - Invalid Card Format,Inline JSON,400/422,Problem Details status code,negative,Pass,Newman HTML Report
+TC06,Negative,/events,POST,Create Sensor Event - Invalid Metric,Inline JSON,400/422,Status code,negative,Pass,Newman HTML Report
+TC07,Boundary_Reliability,/events,POST,Create Sensor Event - Very High Value,Inline JSON,201/400/422,Status code,boundary,Pass,Newman HTML Report
+TC08,Consumer_side_Smoke,/vision/face-match,POST,Request Face Match from AI Vision Mock,Inline JSON,201,detectionId and faceMatched,smoke,Pass,Newman HTML Report
+TC09,Local_only_NonFunctional,/health,GET,Health Check Latency,-,200,responseTime < 1000ms,nonfunctional,Pass,Newman HTML Report

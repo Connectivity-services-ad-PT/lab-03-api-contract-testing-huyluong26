@@ -1,0 +1,12 @@
+name: team-core-local
+values:
+  - key: env
+    value: local
+  - key: baseUrl
+    value: 'http://localhost:8000'
+  - key: authToken
+    value: local-dev-token
+  - key: teamName
+    value: team-core
+  - key: aiVisionMockUrl
+    value: 'http://localhost:4010'

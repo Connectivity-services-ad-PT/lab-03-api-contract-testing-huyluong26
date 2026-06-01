@@ -1,0 +1,133 @@
+{
+  "info": {
+    "name": "team-core",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection generated from team-core OpenAPI spec."
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Alert",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sourceService\": \"core-business\",\n  \"alertType\": \"UNAUTHORIZED_ACCESS\",\n  \"severity\": \"HIGH\",\n  \"message\": \"Phát hiện truy cập trái phép tại cổng chính\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/alerts",
+          "host": ["{{baseUrl}}"],
+          "path": ["alerts"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "List Alerts",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/alerts?limit=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["alerts"],
+          "query": [ { "key": "limit", "value": "20" } ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Alert By ID",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/alerts/{{alertId}}",
+          "host": ["{{baseUrl}}"],
+          "path": ["alerts", "{{alertId}}"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Campus Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"eventType\": \"SENSOR_READING\",\n  \"eventId\": \"{{uuid}}\",\n  \"deviceId\": \"SENSOR-001\",\n  \"metric\": \"temperature\",\n  \"value\": 38.5,\n  \"unit\": \"celsius\",\n  \"timestamp\": \"{{timestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/events",
+          "host": ["{{baseUrl}}"],
+          "path": ["events"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Access Check",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Idempotency-Key", "value": "{{idempotencyKey}}" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cardId\": \"RFID-2026-001\",\n  \"gateId\": \"GATE-01\",\n  \"timestamp\": \"{{timestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/access/check",
+          "host": ["{{baseUrl}}"],
+          "path": ["access", "check"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Face Match",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"imageRef\": \"https://campus.local/images/card-scan-001.jpg\",\n  \"requestId\": \"{{uuid}}\",\n  \"cameraId\": \"CAM-002\",\n  \"timestamp\": \"{{timestamp}}\"\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/vision/face-match",
+          "host": ["{{baseUrl}}"],
+          "path": ["vision", "face-match"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:4010" },
+    { "key": "alertId", "value": "" },
+    { "key": "uuid", "value": "" },
+    { "key": "timestamp", "value": "" },
+    { "key": "idempotencyKey", "value": "" }
+  ]
+}

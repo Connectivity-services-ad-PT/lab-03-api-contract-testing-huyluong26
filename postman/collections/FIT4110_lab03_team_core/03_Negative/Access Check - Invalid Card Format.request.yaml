@@ -1,0 +1,28 @@
+$kind: http-request
+url: "{{baseUrl}}/access/check"
+method: POST
+headers:
+  Authorization: Bearer {{authToken}}
+  Idempotency-Key: req-error-12345
+  Content-Type: application/json
+body:
+  type: text
+  content: |-
+    {
+      "cardId": "INVALID-CARD-123",
+      "gateId": "GATE-01",
+      "timestamp": "2026-05-10T08:01:00Z"
+    }
+scripts:
+  - type: afterResponse
+    code: |-
+      pm.test("Invalid payload returns 400 or 422", function () {
+          pm.expect([400, 422]).to.include(pm.response.code);
+      });
+
+      pm.test("Error response follows ProblemDetails", function () {
+          const json = pm.response.json();
+          pm.expect(json.status).to.be.within(400, 599);
+      });
+    language: text/javascript
+order: 1000

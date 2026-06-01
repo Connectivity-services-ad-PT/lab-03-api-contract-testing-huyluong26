@@ -1,0 +1,7 @@
+# Use this workspace to collaborate
+workspace:
+  id: 187f13a9-611c-4ed8-8099-623f3b4bc16e
+
+localResources:
+  specs:
+    - ..\contracts\team-core.openapi.yaml
